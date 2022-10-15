@@ -1,29 +1,58 @@
 import { animated } from "react-spring";
 import "./robot.css";
 import { useAnimation } from "./animation";
-import {useEffect, useRef, useState} from "react";
+import { useEffect, useRef, useState } from "react";
 import sound from "./sound.wav";
-import {AnotherComponent} from "./AnotherComponent";
 
 const audio = new Audio(sound);
 
-export const Robot = (props) => {
-  const { name } = props;
+export const Robot = ({ name }) => {
   const [angry, setAngry] = useState(false);
+  const [mount, setMount] = useState(false);
+  const [value, setValue] = useState("");
+
+  const myRobotDiv = useRef();
+
+  // КОД АНИМАЦИИ
+  const { stylesLeft, stylesRight, stylesHead, stylesAntenna, stylesTors } =
+    useAnimation();
+  // ------------
+
+  //class?????
+  //componentDidMount
+  //componentDidUpdate
+  //componentWillUnmount
+
+  //function
 
   useEffect(() => {
-    console.log('DALIDA')
-    audio.play();
-    return () => {
-      console.log('NARTAY');
-    }
-  }, [name])
+    console.log("DILNAZ");
+  }, [value, name]);
 
-  console.log('AIDAR')
+  useEffect(() => {
+    audio.play();
+    console.log("AMIR");
+    return () => {
+      console.log("MADIYAR");
+      audio.pause();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (mount) {
+      console.log("ASSEM");
+    }
+    setMount(true);
+  }, [angry, name]);
+
+  useEffect(() => {
+    console.log("ANDREY");
+  });
 
   return (
-    <div className="root" >
+    <div className="root" ref={myRobotDiv}>
       <div className="robot">
+        <input value={value} onChange={(e) => setValue(e.target.value)} />
         <animated.div style={stylesAntenna} className="antenna"></animated.div>
         <animated.div style={stylesHead} className="head">
           <div

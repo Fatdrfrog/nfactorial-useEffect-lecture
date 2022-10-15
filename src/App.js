@@ -1,21 +1,48 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import { Robot } from "./components/Robot";
+import axios from "axios";
+
+// https://swapi.dev/api/people
 
 function App() {
   const [name, setName] = useState("Connor");
   const [showRobot, setShowRobot] = useState(false);
+  const [isLoading, setLoading] = useState(false);
+  const [characters, setCharacters] = useState([]);
 
   const onNameChange = (event) => {
     setName(event.target.value);
   };
-  console.log('HELLO')
+
+  //npm install axios
+  //hello
+
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get("https://swapi.dev/api/people")
+      .then((res) => {
+        setCharacters(res.data.results);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("There is an error!");
+        console.log(err);
+        setLoading(false);
+      })
+      .finally(() => {
+        console.log("Final Dance");
+      });
+  }, []);
+
+  if (isLoading) return <>Loading...</>;
 
   return (
     <div className="App">
       <div className="controllers">
         <div>
-          Имя робота:
+          Имя робота: {characters.length > 0 && characters[6].name}
           <input
             style={{ marginLeft: 12 }}
             value={name}
