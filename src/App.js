@@ -10,6 +10,7 @@ function App() {
   const [showRobot, setShowRobot] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [characters, setCharacters] = useState([]);
+  const [somethingNew, setSomthNew] = useState("WoW!");
 
   const onNameChange = (event) => {
     setName(event.target.value);
